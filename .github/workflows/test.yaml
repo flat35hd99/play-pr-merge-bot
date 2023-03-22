@@ -13,3 +13,11 @@ jobs:
       - uses: actions/checkout@v2
       - run: exit 0
       - run: echo hello
+      - name: Integration check
+        uses: squalrus/merge-bot@v0.4.4
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          reviewers: false
+          required-labels: ready
+          method: squash
+          delete_source_branch: true
