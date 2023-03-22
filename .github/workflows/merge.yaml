@@ -1,0 +1,22 @@
+name: Merge Bot
+
+on:
+  workflow_run:
+    workflows: ["test"]
+    types:
+      - completed
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    name: Merge
+    steps:
+    - name: Integration check
+      uses: squalrus/merge-bot@v0.1.0
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        reviewers: false
+        labels: ready
+        checks_enabled: true
+        method: squash
+        delete_source_branch: true
